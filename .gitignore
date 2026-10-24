@@ -1,0 +1,45 @@
+# --- Datasets (large; keep dir structure + archives only) ---
+data/**
+!data/**/
+!data/**/*.zip
+!data/human+activity+recognition+using+smartphones/UCI HAR Dataset.names
+
+# Extracted / preprocessed EuroSAT data
+data/EuroSAT_RGB/
+data/processed/
+
+# --- Python / uv ---
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info
+.venv/
+venv/
+
+# --- Run artifacts ---
+# Model checkpoints are large binaries; recoverable by re-running training.
+*.pt
+# Ad-hoc single training runs (timestamped). Campaign results under
+# outputs/experiments/ ARE tracked (summaries, metrics, plots) for the report.
+outputs/runs/
+
+# --- LaTeX build artifacts (match at any depth under report/, incl. report/build/) ---
+report/**/*.aux
+report/**/*.bbl
+report/**/*.bcf
+report/**/*.blg
+report/**/*.fdb_latexmk
+report/**/*.fls
+report/**/*.log
+report/**/*.out
+report/**/*.pdf
+report/**/*.run.xml
+report/**/*.synctex.gz
+report/**/*.toc
+report/**/*.bbl-SAVE-ERROR
+report/**/*.bcf-SAVE-ERROR
+report/build.log
+report/build/
+
+# --- OS ---
+.DS_Store

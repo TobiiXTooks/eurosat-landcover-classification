@@ -1,0 +1,148 @@
+\section{Discussion and Limitations}
+
+\subsection{Model 1 Interpretation}
+
+The experiments show that a relatively small scratch CNN can already achieve
+strong results on EuroSAT RGB. The architecture alone was not the only important
+part. The training configuration also mattered. The best validation result was
+obtained only after combining augmentation, dropout, weight decay, and SGD with
+momentum.
+
+The binary classification task
+reached a test macro-F1 of 0.9795, while the 10-class classification reached
+0.9519. This is expected because the binary task groups several similar classes
+together. Vegetation classes such as Pasture, PermanentCrop,
+HerbaceousVegetation, and AnnualCrop can be difficult to separate in RGB images.
+
+One advantage of the chosen procedure is the clean separation between training,
+validation, and test data. Normalization was computed only from the training
+data, and the test split was not used for hyperparameter selection. Therefore,
+the final test scores are more meaningful than they would be if the test split
+had been used repeatedly during model tuning.
+
+\subsection{ResNet Transfer Learning Interpretation}
+
+The ResNet-50 transfer learning model achieves a test macro-F1 of 0.9812 on the
+10-class task, compared to 0.9519 for the scratch CNN. The improvement is
+moderate in absolute terms, but the data efficiency experiments reveal a much
+larger story.
+
+The frozen ResNet baseline, which trains only the linear classification head
+(20{,}490 parameters) while keeping all backbone weights fixed, reaches a test
+accuracy of 93.7\%. This means that ImageNet features alone, without any
+fine-tuning, already outperform the fully trained scratch CNN at 500 and 2{,}000
+training images. It confirms that the backbone has learned feature representations
+that transfer directly to satellite land-use classification.
+
+Fine-tuning \texttt{layer4} on top of the frozen features adds a further 4.4
+percentage points at full data, pushing test accuracy from 93.7\% to 98.2\%.
+This marginal cost (adapting roughly 14.7 million parameters instead of 20{,}490)
+is justified by the consistent gain across all data sizes.
+
+One limitation of the transfer learning approach is the increased computational
+cost per epoch. With 224$\times$224 inputs and a 50-layer backbone, each epoch
+takes approximately 151 seconds on Apple Silicon MPS, compared to 8 seconds for
+the scratch CNN. However, the ResNet requires far fewer epochs to converge
+(15 vs.\ 42 for the scratch CNN at full data), so the total wall-clock training
+time is roughly 37 minutes versus 6 minutes. For applications where training
+time matters more than final accuracy, the scratch CNN remains a practical choice.
+
+\subsection{Model Comparison}
+
+Table \ref{tab:model_comparison} compares the scratch CNN with the two Model 2
+transfer-learning backbones across both tasks. Both pretrained backbones
+outperform the scratch CNN on both tasks: ResNet-50 achieves the best 10-class
+result, while EfficientNet-B0 is marginally the best on the binary task.
+
+\begin{table}[H]
+\centering
+\caption{Final model comparison on the full test split ($n=4050$).}
+\label{tab:model_comparison}
+\small
+\begin{tabular}{llrrrr}
+\toprule
+Model & Task & Val Acc. & Val F1 & Test Acc. & Test F1 \\
+\midrule
+Scratch CNN        & 10-class & 0.9573 & 0.9557 & 0.9531 & 0.9519 \\
+Scratch CNN        & Binary   & 0.9795 & 0.9795 & 0.9795 & 0.9795 \\
+EfficientNet-B0    & 10-class & 0.9793 & 0.9784 & 0.9726 & 0.9719 \\
+EfficientNet-B0    & Binary   & 0.9961 & 0.9961 & 0.9941 & 0.9941 \\
+ResNet-50 (layer4) & 10-class & 0.9780 & 0.9770 & 0.9817 & 0.9812 \\
+ResNet-50 (layer4) & Binary   & 0.9943 & 0.9943 & 0.9938 & 0.9938 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the 10-class task, both pretrained backbones outperformed the scratch CNN on
+the test set. EfficientNet-B0 reached a test macro-F1 of 0.9719 and ResNet-50
+reached 0.9812, compared with 0.9519 for the scratch CNN. ResNet-50, fine-tuned
+through \texttt{layer4}, achieved the best 10-class result overall: it improved
+test accuracy by 2.9 percentage points over the scratch CNN (0.9817 vs.\ 0.9531),
+with EfficientNet-B0 following closely. This confirms that the pretrained features
+transfer well to EuroSAT once the backbones are fine-tuned for enough epochs.
+
+For the binary task, both pretrained models performed better than the scratch
+CNN. EfficientNet-B0 reached a test macro-F1 of 0.9941 and ResNet-50 reached
+0.9938, compared with 0.9795 for the scratch CNN. The two backbones are
+essentially tied on this task, with EfficientNet-B0 marginally ahead. This
+suggests that pretrained visual features are especially useful when the target
+decision boundary is less fine-grained. Separating vegetation from non-vegetation does not require
+distinguishing all visually similar crop and vegetation subclasses.
+
+The data efficiency comparison in Tables \ref{tab:data_efficiency_exp} and
+\ref{tab:data_efficiency_binary} is more informative than the full-data numbers
+alone. At 500 training images, the ResNet (layer4) achieves a test accuracy of
+92.8\% on the 10-class task, while the scratch CNN reaches only 70.2\%. This
+22.6 percentage point gap shrinks to 3.4 points at full data. The result shows
+that transfer learning is most beneficial in low-data regimes, where the
+pretrained features compensate for the lack of labeled examples. When sufficient
+data is available, a well-regularized scratch CNN narrows the gap substantially.
+
+The binary data efficiency results are even more striking. At 500 images, the
+ResNet already achieves 97.5\% test accuracy, while the scratch CNN reaches
+86.9\%. The scratch CNN only surpasses 97\% when trained on the full dataset.
+Transfer learning therefore reaches the scratch CNN's full-data performance using
+roughly 2.6\% of the training data.
+
+\begin{table}[H]
+\centering
+\caption{Summary of key comparison metrics between the scratch CNN and ResNet-50.}
+\label{tab:comparison_summary}
+\small
+\begin{tabular}{lrr}
+\toprule
+Metric & Scratch CNN & ResNet-50 (layer4) \\
+\midrule
+Trainable parameters          & 390{,}986   & 14{,}985{,}226 \\
+Input resolution              & 64$\times$64    & 224$\times$224     \\
+Epochs to converge (full data)& 42          & 15                 \\
+Time per epoch (full data)    & $\sim$8\,s  & $\sim$151\,s       \\
+Total training time           & $\sim$6\,min & $\sim$38\,min     \\
+10-class test accuracy        & 0.9531      & 0.9817             \\
+10-class test macro-F1        & 0.9519      & 0.9812             \\
+Binary test accuracy          & 0.9795      & 0.9938             \\
+Test acc.\ at 500 train images (10-class) & 0.7017 & 0.9284      \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Overall, both approaches are valid. The scratch CNN is easiest to understand
+and directly demonstrates the training process from the course. For Model 2,
+both transfer-learning backbones use external pretraining knowledge and a larger
+input resolution: EfficientNet-B0 is a strong, parameter-efficient baseline that
+matches ResNet-50 on the binary task, while ResNet-50 gives the best 10-class
+accuracy and by far the best data efficiency, at the cost of higher per-epoch
+compute. The fact that both pretrained backbones outperform the scratch CNN on
+both tasks indicates that the benefit comes from transfer learning itself rather
+than from a single architecture.
+
+\subsection{Limitations}
+
+There are several limitations. First, only RGB information was used. Sentinel-2
+data contains additional spectral bands that could be useful for distinguishing
+vegetation, water, and built-up areas. Both pretrained backbones expect
+three-channel input, so these additional bands were not used in the transfer
+learning models.
+
+Second, all models were evaluated with one fixed seed. Multiple training runs
+with different seeds would give a better estimate of variance.

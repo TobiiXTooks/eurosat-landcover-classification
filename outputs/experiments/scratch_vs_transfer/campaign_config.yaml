@@ -1,0 +1,254 @@
+campaign_id: scratch_vs_transfer
+base_config: configs/scratch_cnn.yaml
+processed_dir: data/processed
+output_root: outputs/experiments
+skip_selection: true
+experiments:
+- id: scratch_50
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 50
+- id: scratch_200
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 200
+- id: scratch_full
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+- id: resnet_50
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 50
+  overrides:
+    data:
+      image_size: 224
+      norm_override_mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      norm_override_std:
+      - 0.229
+      - 0.224
+      - 0.225
+    model:
+      name: resnet50_transfer
+      approach: transfer_learning
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+      dropout: 0.5
+    optimizer:
+      lr: 0.0001
+    training:
+      max_epochs: 50
+      early_stopping_patience: 8
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 0
+- id: resnet_200
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 200
+  overrides:
+    data:
+      image_size: 224
+      norm_override_mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      norm_override_std:
+      - 0.229
+      - 0.224
+      - 0.225
+    model:
+      name: resnet50_transfer
+      approach: transfer_learning
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+      dropout: 0.5
+    optimizer:
+      lr: 0.0001
+    training:
+      max_epochs: 50
+      early_stopping_patience: 8
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 0
+- id: resnet_full
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  overrides:
+    data:
+      image_size: 224
+      norm_override_mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      norm_override_std:
+      - 0.229
+      - 0.224
+      - 0.225
+    model:
+      name: resnet50_transfer
+      approach: transfer_learning
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+      dropout: 0.5
+    optimizer:
+      lr: 0.0001
+    training:
+      max_epochs: 50
+      early_stopping_patience: 8
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 0
+- id: resnet_frozen_full
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  overrides:
+    data:
+      image_size: 224
+      norm_override_mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      norm_override_std:
+      - 0.229
+      - 0.224
+      - 0.225
+    model:
+      name: resnet50_transfer
+      approach: transfer_learning
+      unfreeze_layers: []
+      custom_head: false
+      dropout: 0.5
+    optimizer:
+      lr: 0.0001
+    training:
+      max_epochs: 50
+      early_stopping_patience: 8
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 0
+- id: scratch_50_binary
+  phase: sweep
+  task: binary
+  evaluate_test: true
+  limit_per_class: 50
+- id: scratch_200_binary
+  phase: sweep
+  task: binary
+  evaluate_test: true
+  limit_per_class: 200
+- id: scratch_full_binary
+  phase: sweep
+  task: binary
+  evaluate_test: true
+- id: resnet_50_binary
+  phase: sweep
+  task: binary
+  evaluate_test: true
+  limit_per_class: 50
+  overrides:
+    data:
+      image_size: 224
+      norm_override_mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      norm_override_std:
+      - 0.229
+      - 0.224
+      - 0.225
+    model:
+      name: resnet50_transfer
+      approach: transfer_learning
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+      dropout: 0.5
+    optimizer:
+      lr: 0.0001
+    training:
+      max_epochs: 50
+      early_stopping_patience: 8
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 0
+- id: resnet_200_binary
+  phase: sweep
+  task: binary
+  evaluate_test: true
+  limit_per_class: 200
+  overrides:
+    data:
+      image_size: 224
+      norm_override_mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      norm_override_std:
+      - 0.229
+      - 0.224
+      - 0.225
+    model:
+      name: resnet50_transfer
+      approach: transfer_learning
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+      dropout: 0.5
+    optimizer:
+      lr: 0.0001
+    training:
+      max_epochs: 50
+      early_stopping_patience: 8
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 0
+- id: resnet_full_binary
+  phase: sweep
+  task: binary
+  evaluate_test: true
+  overrides:
+    data:
+      image_size: 224
+      norm_override_mean:
+      - 0.485
+      - 0.456
+      - 0.406
+      norm_override_std:
+      - 0.229
+      - 0.224
+      - 0.225
+    model:
+      name: resnet50_transfer
+      approach: transfer_learning
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+      dropout: 0.5
+    optimizer:
+      lr: 0.0001
+    training:
+      max_epochs: 50
+      early_stopping_patience: 8
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 0

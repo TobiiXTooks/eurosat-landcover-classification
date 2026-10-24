@@ -1,0 +1,106 @@
+campaign_id: course_practical
+base_config: configs/scratch_cnn.yaml
+processed_dir: data/processed
+output_root: outputs/experiments
+experiments:
+- id: E0_overfit_100
+  phase: sanity
+  task: multiclass
+  evaluate_test: false
+  overfit_samples: 100
+  overrides:
+    model:
+      dropout: 0.0
+    optimizer:
+      name: adam
+      lr: 0.001
+      weight_decay: 0.0
+    training:
+      max_epochs: 50
+      early_stopping_patience: 50
+    augmentation:
+      random_horizontal_flip: false
+      random_vertical_flip: false
+      random_rotation_degrees: 0
+- id: E1_baseline_no_aug
+  phase: ablation
+  task: multiclass
+  evaluate_test: false
+  overrides:
+    model:
+      dropout: 0.0
+    optimizer:
+      name: adam
+      lr: 0.001
+      weight_decay: 0.0
+    augmentation:
+      random_horizontal_flip: false
+      random_vertical_flip: false
+      random_rotation_degrees: 0
+- id: E2_augmentation
+  phase: ablation
+  task: multiclass
+  evaluate_test: false
+  overrides:
+    model:
+      dropout: 0.0
+    optimizer:
+      name: adam
+      lr: 0.001
+      weight_decay: 0.0
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 15
+- id: E3_regularized
+  phase: ablation
+  task: multiclass
+  evaluate_test: false
+  overrides:
+    model:
+      dropout: 0.3
+    optimizer:
+      name: adam
+      lr: 0.001
+      weight_decay: 0.0001
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 15
+- id: E4_sgd_momentum
+  phase: ablation
+  task: multiclass
+  evaluate_test: false
+  overrides:
+    model:
+      dropout: 0.3
+    optimizer:
+      name: sgd
+      lr: 0.01
+      momentum: 0.9
+      weight_decay: 0.0001
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 15
+- id: E5_depthwise_separable
+  phase: ablation
+  task: multiclass
+  evaluate_test: false
+  overrides:
+    model:
+      name: depthwise_separable_cnn
+      dropout: 0.3
+    optimizer:
+      name: sgd
+      lr: 0.01
+      momentum: 0.9
+      weight_decay: 0.0001
+    augmentation:
+      random_horizontal_flip: true
+      random_vertical_flip: true
+      random_rotation_degrees: 15
+final:
+  tasks:
+  - multiclass
+  - binary

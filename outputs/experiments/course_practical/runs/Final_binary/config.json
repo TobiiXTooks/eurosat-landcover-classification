@@ -1,0 +1,40 @@
+{
+  "data": {
+    "image_size": 64,
+    "num_workers": 4
+  },
+  "model": {
+    "name": "scratch_cnn",
+    "dropout": 0.3
+  },
+  "optimizer": {
+    "name": "sgd",
+    "lr": 0.01,
+    "weight_decay": 0.0001,
+    "momentum": 0.9
+  },
+  "training": {
+    "batch_size": 64,
+    "max_epochs": 50,
+    "early_stopping_patience": 7,
+    "checkpoint_criterion": "val_loss"
+  },
+  "augmentation": {
+    "random_horizontal_flip": true,
+    "random_vertical_flip": true,
+    "random_rotation_degrees": 15
+  },
+  "smoke": {
+    "epochs": 1,
+    "limit_per_class": 8
+  },
+  "_runtime": {
+    "task": "binary",
+    "smoke": false,
+    "limit_per_class": null,
+    "device_request": "auto",
+    "run_name": "Final_binary",
+    "evaluate_test": true,
+    "overfit_samples": null
+  }
+}

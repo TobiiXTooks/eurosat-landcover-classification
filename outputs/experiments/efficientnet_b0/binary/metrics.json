@@ -1,0 +1,72 @@
+{
+  "config": {
+    "task": "binary",
+    "data_root": "data/eurosat/EuroSAT_MS",
+    "output_dir": "outputs/experiments/efficientnet_b0/binary",
+    "image_size": 224,
+    "batch_size": 64,
+    "epochs": 50,
+    "freeze_epochs": 5,
+    "unfreeze_blocks": 2,
+    "lr_head": 0.001,
+    "lr_backbone": 0.0001,
+    "weight_decay": 0.0001,
+    "num_workers": 4,
+    "seed": 42,
+    "device": "mps",
+    "pretrained": true
+  },
+  "class_names": [
+    "Non-vegetation",
+    "Vegetation"
+  ],
+  "best_epoch": 29,
+  "best_val_loss": 0.012981115268338953,
+  "val": {
+    "loss": 0.012981115268338953,
+    "accuracy": 0.996050357936312,
+    "macro_f1": 0.9960503557702245
+  },
+  "test": {
+    "loss": 0.018380341347375952,
+    "accuracy": 0.9940740740740741,
+    "macro_f1": 0.9940740740740741
+  },
+  "test_confusion_matrix": [
+    [
+      2013,
+      12
+    ],
+    [
+      12,
+      2013
+    ]
+  ],
+  "test_classification_report": {
+    "Non-vegetation": {
+      "precision": 0.9940740740740741,
+      "recall": 0.9940740740740741,
+      "f1-score": 0.9940740740740741,
+      "support": 2025.0
+    },
+    "Vegetation": {
+      "precision": 0.9940740740740741,
+      "recall": 0.9940740740740741,
+      "f1-score": 0.9940740740740741,
+      "support": 2025.0
+    },
+    "accuracy": 0.9940740740740741,
+    "macro avg": {
+      "precision": 0.9940740740740741,
+      "recall": 0.9940740740740741,
+      "f1-score": 0.9940740740740741,
+      "support": 4050.0
+    },
+    "weighted avg": {
+      "precision": 0.9940740740740741,
+      "recall": 0.9940740740740741,
+      "f1-score": 0.9940740740740741,
+      "support": 4050.0
+    }
+  }
+}

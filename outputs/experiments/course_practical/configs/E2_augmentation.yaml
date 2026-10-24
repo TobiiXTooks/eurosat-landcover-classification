@@ -1,0 +1,22 @@
+data:
+  image_size: 64
+  num_workers: 4
+model:
+  name: scratch_cnn
+  dropout: 0.0
+optimizer:
+  name: adam
+  lr: 0.001
+  weight_decay: 0.0
+training:
+  batch_size: 64
+  max_epochs: 50
+  early_stopping_patience: 7
+  checkpoint_criterion: val_loss
+augmentation:
+  random_horizontal_flip: true
+  random_vertical_flip: true
+  random_rotation_degrees: 15
+smoke:
+  epochs: 1
+  limit_per_class: 8

@@ -1,0 +1,32 @@
+\section{Introduction}
+
+Satellite images contain useful information about land use and land cover. This
+makes automatic classification of such images a natural application for deep
+learning. In this project, the EuroSAT RGB dataset is used
+\cite{helber2019eurosat,eurosatgithub}.
+
+The project compares two model approaches on the same dataset. Model 1 is a CNN
+trained from scratch. Its purpose is to show the full training process, from
+architecture design to optimizer choice and evaluation. Model 2 is a transfer
+learning approach, in which an ImageNet-pretrained convolutional backbone is
+fine-tuned on EuroSAT. To avoid drawing conclusions from a single architecture,
+the transfer learning approach is evaluated with two structurally different
+backbones: the parameter-efficient EfficientNet-B0
+\cite{tan2019efficientnet,pytorch} and the larger deep-residual ResNet-50
+\cite{he2016resnet}. Comparing two backbones shows whether any advantage over
+the scratch CNN comes from transfer learning in general rather than from one
+specific model, and lets us study how pretrained features affect accuracy and
+data efficiency across architectures.
+
+Two tasks are considered on the same dataset:
+
+\begin{itemize}
+  \item a 10-class classification task using the original EuroSAT classes,
+  \item a binary classification task: vegetation vs. non-vegetation.
+\end{itemize}
+
+The same train/validation/test split was used for both tasks. This is important
+because otherwise differences in the results could also come from different
+data partitions. The hyperparameter experiments used only the training and
+validation splits. The test split was evaluated only for the final selected
+configurations.

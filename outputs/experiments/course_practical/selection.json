@@ -1,0 +1,11 @@
+{
+  "campaign_id": "course_practical",
+  "selected_experiment_id": "E4_sgd_momentum",
+  "selected_by": "highest val_macro_f1, tie lowest best_val_loss",
+  "best_val_macro_f1": 0.9556663833514513,
+  "best_val_loss": 0.1362173239762799,
+  "final_runs": [
+    "Final_multiclass",
+    "Final_binary"
+  ]
+}

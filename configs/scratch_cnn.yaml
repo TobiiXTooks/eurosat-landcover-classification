@@ -1,0 +1,29 @@
+data:
+  image_size: 64
+  num_workers: 4
+
+model:
+  name: scratch_cnn
+  dropout: 0.3
+
+optimizer:
+  name: adam
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+
+training:
+  batch_size: 64
+  max_epochs: 50
+  early_stopping_patience: 7
+  # checkpoint the epoch with the lowest validation loss.
+  checkpoint_criterion: val_loss
+
+augmentation:
+  # applied to the training split only
+  random_horizontal_flip: true
+  random_vertical_flip: true
+  random_rotation_degrees: 15
+
+smoke:
+  epochs: 1
+  limit_per_class: 8

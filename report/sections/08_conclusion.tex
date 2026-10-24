@@ -1,0 +1,41 @@
+\section{Conclusion}
+
+In this project, EuroSAT RGB is used for two related classification tasks. The
+first completed model is a CNN implemented and trained from scratch. Its final
+configuration was not chosen arbitrarily, but selected from several validation
+experiments. SGD with momentum, combined with augmentation, dropout, and weight
+decay, gave the best validation results for the scratch CNN.
+
+The final scratch CNN achieved a test accuracy of 0.9531 and a macro-F1 of
+0.9519 on the 10-class task. On the binary task, it achieved 0.9795 accuracy and
+0.9795 macro-F1. The results show that a compact, self-trained CNN works well on
+EuroSAT RGB. The remaining errors mainly occur between visually similar classes,
+especially within the vegetation categories.
+
+Model 2 is a transfer learning approach, evaluated with two ImageNet-pretrained
+backbones. The first, EfficientNet-B0, had its classifier replaced for the
+EuroSAT tasks and was trained in two phases: first with a frozen feature
+extractor and then with the final EfficientNet blocks unfrozen.
+
+The second backbone for Model 2, ResNet-50, was evaluated to test whether the
+transfer-learning advantage holds across architectures. It achieved a test
+accuracy of 0.9817 and a macro-F1 of 0.9812 on the
+10-class task, and 0.9938 on the binary task. The data efficiency experiments
+show that the pretrained model reaches competitive accuracy with far less
+labeled data: at only 500 training images it achieves 92.8\% test accuracy on
+the 10-class task, compared to 70.2\% for the scratch CNN. The gap narrows when
+the full dataset is available, but the ResNet consistently outperforms the
+scratch CNN across all data sizes and both tasks.
+
+The results show that both approaches work well on EuroSAT. Both Model 2 backbones
+outperformed the scratch CNN on both tasks. ResNet-50 achieved the best 10-class
+result (macro-F1 0.9812), while EfficientNet-B0 was marginally best on the binary
+task (macro-F1 0.9941, versus 0.9938 for ResNet-50). The binary task was easier
+for all models because
+several visually similar
+vegetation classes were merged into one class. The remaining errors mainly occur
+between visually similar land use categories.
+
+A useful extension would be to use all Sentinel-2 spectral bands instead of RGB
+only. This would require either adapting the first layer of a pretrained model
+or using a model designed for multispectral satellite images.

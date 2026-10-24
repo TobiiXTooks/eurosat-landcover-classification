@@ -1,0 +1,124 @@
+campaign_id: data_efficiency
+base_config: configs/resnet50_transfer.yaml
+processed_dir: data/processed
+output_root: outputs/experiments
+skip_selection: true
+experiments:
+- id: layer4_25
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 25
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+- id: layer4_50
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 50
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+- id: layer4_100
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 100
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+- id: layer4_200
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 200
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+- id: layer4_500
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 500
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+- id: layer4_full
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: false
+- id: custom_head_25
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 25
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: true
+- id: custom_head_50
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 50
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: true
+- id: custom_head_100
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 100
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: true
+- id: custom_head_200
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 200
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: true
+- id: custom_head_500
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  limit_per_class: 500
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: true
+- id: custom_head_full
+  phase: sweep
+  task: multiclass
+  evaluate_test: true
+  overrides:
+    model:
+      unfreeze_layers:
+      - layer4
+      custom_head: true

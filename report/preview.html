@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>preview.pdf — live preview</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #525659; }
+    #bar { font: 13px -apple-system, sans-serif; color: #ddd; padding: 4px 10px;
+           background: #333; display: flex; gap: 12px; align-items: center; }
+    #dot { width: 9px; height: 9px; border-radius: 50%; background: #4caf50; }
+    #frame { width: 100%; height: calc(100% - 25px); border: 0; }
+  </style>
+</head>
+<body>
+  <div id="bar"><span id="dot"></span><span id="status">watching preview.pdf…</span></div>
+  <iframe id="frame" src="preview.pdf"></iframe>
+  <script>
+    const frame = document.getElementById('frame');
+    const status = document.getElementById('status');
+    const dot = document.getElementById('dot');
+    let last = null;
+
+    async function check() {
+      try {
+        const res = await fetch('preview.pdf', { method: 'HEAD', cache: 'no-store' });
+        const stamp = res.headers.get('last-modified') || res.headers.get('etag');
+        if (last !== null && stamp !== last) {
+          // PDF changed -> reload the iframe with a cache-busting query
+          frame.src = 'preview.pdf?t=' + Date.now();
+          status.textContent = 'reloaded ' + new Date().toLocaleTimeString();
+        }
+        last = stamp;
+        dot.style.background = '#4caf50';
+      } catch (e) {
+        dot.style.background = '#e53935';
+        status.textContent = 'server not reachable — is preview.sh running?';
+      }
+    }
+    setInterval(check, 1000);
+    check();
+  </script>
+</body>
+</html>

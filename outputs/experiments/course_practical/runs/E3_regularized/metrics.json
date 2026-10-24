@@ -1,0 +1,224 @@
+{
+  "task": "multiclass",
+  "evaluation": "val_only",
+  "model": {
+    "class_name": "ScratchCNN",
+    "trainable_parameters": 390986
+  },
+  "class_order": [
+    "AnnualCrop",
+    "Forest",
+    "HerbaceousVegetation",
+    "Highway",
+    "Industrial",
+    "Pasture",
+    "PermanentCrop",
+    "Residential",
+    "River",
+    "SeaLake"
+  ],
+  "epochs_completed": 47,
+  "best_val_loss": 0.15215062645225577,
+  "val": {
+    "loss": 0.15215062645225577,
+    "accuracy": 0.9503826215749198,
+    "macro_f1": 0.9488950001330927,
+    "per_class": {
+      "AnnualCrop": {
+        "precision": 0.9459459459459459,
+        "recall": 0.9333333333333333,
+        "f1-score": 0.9395973154362416,
+        "support": 450.0
+      },
+      "Forest": {
+        "precision": 0.9780701754385965,
+        "recall": 0.9911111111111112,
+        "f1-score": 0.9845474613686535,
+        "support": 450.0
+      },
+      "HerbaceousVegetation": {
+        "precision": 0.9331797235023042,
+        "recall": 0.8980044345898004,
+        "f1-score": 0.9152542372881356,
+        "support": 451.0
+      },
+      "Highway": {
+        "precision": 0.944,
+        "recall": 0.944,
+        "f1-score": 0.944,
+        "support": 375.0
+      },
+      "Industrial": {
+        "precision": 0.9577836411609498,
+        "recall": 0.968,
+        "f1-score": 0.9628647214854111,
+        "support": 375.0
+      },
+      "Pasture": {
+        "precision": 0.9401993355481728,
+        "recall": 0.9433333333333334,
+        "f1-score": 0.9417637271214643,
+        "support": 300.0
+      },
+      "PermanentCrop": {
+        "precision": 0.9029649595687331,
+        "recall": 0.8933333333333333,
+        "f1-score": 0.8981233243967829,
+        "support": 375.0
+      },
+      "Residential": {
+        "precision": 0.973741794310722,
+        "recall": 0.9888888888888889,
+        "f1-score": 0.9812568908489526,
+        "support": 450.0
+      },
+      "River": {
+        "precision": 0.9240837696335078,
+        "recall": 0.9413333333333334,
+        "f1-score": 0.9326287978863936,
+        "support": 375.0
+      },
+      "SeaLake": {
+        "precision": 0.9867256637168141,
+        "recall": 0.9911111111111112,
+        "f1-score": 0.9889135254988913,
+        "support": 450.0
+      },
+      "accuracy": 0.9503826215749198,
+      "macro avg": {
+        "precision": 0.9486695008825748,
+        "recall": 0.9492448879034245,
+        "f1-score": 0.9488950001330927,
+        "support": 4051.0
+      },
+      "weighted avg": {
+        "precision": 0.9501983721514746,
+        "recall": 0.9503826215749198,
+        "f1-score": 0.9502238786683144,
+        "support": 4051.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        420,
+        2,
+        2,
+        4,
+        0,
+        5,
+        6,
+        0,
+        8,
+        3
+      ],
+      [
+        0,
+        446,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        4,
+        4,
+        405,
+        2,
+        0,
+        9,
+        17,
+        2,
+        7,
+        1
+      ],
+      [
+        1,
+        0,
+        2,
+        354,
+        5,
+        0,
+        2,
+        2,
+        9,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        363,
+        0,
+        1,
+        8,
+        1,
+        0
+      ],
+      [
+        2,
+        2,
+        6,
+        0,
+        0,
+        283,
+        5,
+        0,
+        1,
+        1
+      ],
+      [
+        11,
+        0,
+        18,
+        3,
+        6,
+        1,
+        335,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        445,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0,
+        10,
+        0,
+        2,
+        4,
+        0,
+        353,
+        0
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        446
+      ]
+    ]
+  }
+}

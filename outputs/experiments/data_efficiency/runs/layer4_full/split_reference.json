@@ -1,0 +1,44 @@
+{
+  "seed": 42,
+  "ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "processed_dir": "data/processed",
+  "class_order": [
+    "AnnualCrop",
+    "Forest",
+    "HerbaceousVegetation",
+    "Highway",
+    "Industrial",
+    "Pasture",
+    "PermanentCrop",
+    "Residential",
+    "River",
+    "SeaLake"
+  ],
+  "counts": {
+    "train": 18899,
+    "val": 4051,
+    "test": 4050
+  },
+  "effective_counts": {
+    "train": 18899,
+    "val": 4051,
+    "test": 4050
+  },
+  "overfit_samples": null,
+  "normalization": {
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  }
+}

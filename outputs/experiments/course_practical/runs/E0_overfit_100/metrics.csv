@@ -1,0 +1,2 @@
+split,trainable_parameters,loss,accuracy,macro_f1
+val,390986,0.68059161901474,0.74,0.7394740862852318

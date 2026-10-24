@@ -1,0 +1,4 @@
+run_id,task,model_name,approach,augmentation,optimizer,lr,weight_decay,dropout,epochs_completed,best_val_loss,val_accuracy,val_macro_f1,test_accuracy,test_macro_f1,checkpoint_path
+20260606_175324_multiclass_smoke,multiclass,scratch_cnn,scratch,hflip+vflip+rot15,adam,0.001,0.0001,0.3,1,2.267389678955078,0.15,0.0738461538461538,0.1,0.0195121951219512,outputs/runs/20260606_175324_multiclass_smoke/best_model.pt
+20260606_175333_binary_smoke,binary,scratch_cnn,scratch,hflip+vflip+rot15,adam,0.001,0.0001,0.3,1,0.6689236164093018,0.5,0.3333333333333333,0.5,0.3333333333333333,outputs/runs/20260606_175333_binary_smoke/best_model.pt
+20260606_181516_multiclass,multiclass,scratch_cnn,scratch,hflip+vflip+rot15,adam,0.001,0.0001,0.3,47,0.15215062645225577,0.9503826215749198,0.9488950001330927,0.9518518518518518,0.950351592391925,outputs/runs/20260606_181516_multiclass/best_model.pt
